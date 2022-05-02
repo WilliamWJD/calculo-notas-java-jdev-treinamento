@@ -2,27 +2,36 @@ package calculoNotas;
 
 import java.util.Arrays;
 
+import javax.swing.JOptionPane;
+
 import calculoNotas.models.Aluno;
 import calculoNotas.models.Disciplina;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Aluno aluno1 = new Aluno("William Dias", 27);
+		String name = JOptionPane.showInputDialog("Digite o nome do aluno: ");
+		int idade = Integer.parseInt(JOptionPane.showInputDialog("Digite a idade do aluno: "));
 		
-		Disciplina disciplina1 = new Disciplina();
-		disciplina1.setDisciplina("Java POO");
-		disciplina1.setNota(90);
+		Aluno aluno1 = new Aluno(name, idade);
 		
-		Disciplina disciplina2 = new Disciplina();
-		disciplina2.setDisciplina("Banco de Dados");
-		disciplina2.setNota(80);
+		for(int i = 1; i <= 4; i++) {
+			String nomeDisciplina = JOptionPane.showInputDialog("Digite o nome da disciplina "+i+"?");
+			double nota = Double.parseDouble(JOptionPane.showInputDialog("Digite a nota "+i+"?")); 
+			
+			Disciplina disciplina = new Disciplina();
+			disciplina.setDisciplina(nomeDisciplina);
+			disciplina.setNota(nota);		
+			
+			aluno1.getDisciplinas().add(disciplina);
+		}
 		
-		Disciplina disciplina3 = new Disciplina();
-		disciplina3.setDisciplina("Gestão de Projetos");
-		disciplina3.setNota(90);
+		int escolha = JOptionPane.showConfirmDialog(null, "Deseja remover algum disciplina ?");
 		
-		aluno1.getDisciplinas().addAll(Arrays.asList(disciplina1, disciplina2, disciplina3));
+		if(escolha == 0) {
+			String disciplinaRemover = JOptionPane.showInputDialog("Qual a disciplina 1, 2, 3 ou 4 ?");
+			aluno1.getDisciplinas().remove(Integer.parseInt(disciplinaRemover) - 1);
+		}
 		
 		System.out.println(aluno1.getDisciplinas());
 		System.out.println(aluno1.getMediaNota());

@@ -1,7 +1,5 @@
 package calculoNotas;
 
-import java.util.Arrays;
-
 import javax.swing.JOptionPane;
 
 import calculoNotas.models.Aluno;
@@ -29,8 +27,15 @@ public class Main {
 		int escolha = JOptionPane.showConfirmDialog(null, "Deseja remover algum disciplina ?");
 		
 		if(escolha == 0) {
-			String disciplinaRemover = JOptionPane.showInputDialog("Qual a disciplina 1, 2, 3 ou 4 ?");
-			aluno1.getDisciplinas().remove(Integer.parseInt(disciplinaRemover) - 1);
+			int continuarRemover = 0;
+			int posicao = 1;
+			
+			while(continuarRemover == 0) {
+				String disciplinaRemover = JOptionPane.showInputDialog("Qual a disciplina 1, 2, 3 ou 4 ?");
+				aluno1.getDisciplinas().remove(Integer.parseInt(disciplinaRemover) - posicao);
+				posicao++;
+				continuarRemover = JOptionPane.showConfirmDialog(null, "Deseja continuar removendo disciplinas ?");
+			}
 		}
 		
 		System.out.println(aluno1.getDisciplinas());

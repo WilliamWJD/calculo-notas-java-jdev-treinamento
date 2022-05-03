@@ -1,6 +1,7 @@
 package calculoNotas;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -13,9 +14,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		List<Aluno> alunos = new ArrayList<Aluno>();
-		List<Aluno> alunosAprovados = new ArrayList<Aluno>();
-		List<Aluno> alunosReprovados = new ArrayList<Aluno>();
-		List<Aluno> alunosRecuperacao = new ArrayList<Aluno>();
+		HashMap<String, List<Aluno>> maps = new HashMap<String, List<Aluno>>();
 
 		for (int qtd = 1; qtd <= 3; qtd++) {
 			String name = JOptionPane.showInputDialog("Digite o nome do aluno " + qtd + ": ");
@@ -81,15 +80,21 @@ public class Main {
 //			}
 //		}
 //		
+		maps.put(StatusAluno.APROVADO, new ArrayList<Aluno>());
+		maps.put(StatusAluno.REPROVADO, new ArrayList<Aluno>());
+		maps.put(StatusAluno.RECUPERACAO, new ArrayList<Aluno>());
+		
 		for (Aluno aluno : alunos) {
 			if (aluno.getSituacao().equalsIgnoreCase(StatusAluno.APROVADO)) {
-				alunosAprovados.add(aluno);
+				maps.get(StatusAluno.APROVADO).add(aluno);
 			} else if (aluno.getSituacao().equalsIgnoreCase(StatusAluno.RECUPERACAO)) {
-				alunosRecuperacao.add(aluno);
+				maps.get(StatusAluno.RECUPERACAO).add(aluno);
 			} else {
-				alunosReprovados.add(aluno);
+				maps.get(StatusAluno.REPROVADO).add(aluno);
 			}
 		}
+		
+		
 
 		for (Aluno aln : alunos) {
 			System.out.println("Aluno: " + aln.getNome());
@@ -101,7 +106,7 @@ public class Main {
 
 		// LISTA ALUNOS APROVADOS
 		System.out.println("*** Alunos aprovados ***");
-		for (Aluno aluno : alunosAprovados) {
+		for (Aluno aluno : maps.get(StatusAluno.APROVADO)) {
 			System.out.println("Aluno: " + aluno.getNome());
 			System.out.println("Idade: " + aluno.getIdade());
 			System.out.println("Situação: " + aluno.getSituacao());
@@ -109,7 +114,7 @@ public class Main {
 
 		// LISTA ALUNOS RECUPERAÇÃO
 		System.out.println("*** Alunos Recuperação ***");
-		for (Aluno aluno : alunosRecuperacao) {
+		for (Aluno aluno : maps.get(StatusAluno.RECUPERACAO)) {
 			System.out.println("Aluno: " + aluno.getNome());
 			System.out.println("Idade: " + aluno.getIdade());
 			System.out.println("Situação: " + aluno.getSituacao());
@@ -117,7 +122,7 @@ public class Main {
 
 		// LISTA ALUNOS REPROVADOS
 		System.out.println("*** Alunos Reprovados ***");
-		for (Aluno aluno : alunosReprovados) {
+		for (Aluno aluno : maps.get(StatusAluno.REPROVADO)) {
 			System.out.println("Aluno: " + aluno.getNome());
 			System.out.println("Idade: " + aluno.getIdade());
 			System.out.println("Situação: " + aluno.getSituacao());

@@ -3,6 +3,8 @@ package calculoNotas.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import calculoNotas.constants.StatusAluno;
+
 public class Aluno {
 	private String nome;
 	private int idade;
@@ -54,15 +56,13 @@ public class Aluno {
 
 	// VERIFICA SITUAÇÃO DO ALUNO
 	public String getSituacao() {
-		String situacao = "";
 		if (getMediaNota() >= 7) {
-			situacao = "Aprovado";
+			return StatusAluno.APROVADO;
 		} else if (getMediaNota() < 5) {
-			situacao = "Reprovado";
+			return StatusAluno.RECUPERACAO;
 		} else {
-			situacao = "Recuperação";
+			return StatusAluno.REPROVADO;
 		}
-		return situacao;
 	}
 
 	@Override
